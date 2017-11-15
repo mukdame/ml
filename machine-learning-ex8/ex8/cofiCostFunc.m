@@ -41,19 +41,21 @@ Theta_grad = zeros(size(Theta));
 %
 
 
+% Compute cost function with regularization
+J_reg = lambda/2*sum(sum(Theta.^2)) + lambda/2*sum(sum(X.^2));
+J = 1/2*sum(sum(R.*(X*Theta'-Y).^2)) + J_reg;
 
+% Compute gradient for X and Theta
+% Concretely, you can set idx = find(R(i, :)==1) to be a list of all the
+% users that have rated movie i. This will allow you to create the temporary
+% matrices Theta temp = Theta(idx, :) and Y temp = Y(i, idx) that index into
+% Theta and Y to give you only the set of users which have rated the i-th
+% movie. This will allow you to write the derivatives as:
+% X grad (i, :) = (X(i, :) ∗ Theta Ttemp − Y temp ) ∗ Theta temp .
+% (Note: The vectorized computation above returns a row-vector i
 
-
-
-
-
-
-
-
-
-
-
-
+X_grad = R.*(X*Theta'-Y)*Theta + lambda*X;
+Theta_grad = (R.*(X*Theta'-Y))'*X + lambda*Theta;
 
 % =============================================================
 
