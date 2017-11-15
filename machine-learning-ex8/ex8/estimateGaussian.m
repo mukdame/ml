@@ -22,9 +22,11 @@ sigma2 = zeros(n, 1);
 %
 
 
+% Compute the mean
+mu = 1/m*sum(X);
 
-
-
+% Compute the variance 
+sigma2 = 1/m*sum((X-mu).^2);
 
 
 
